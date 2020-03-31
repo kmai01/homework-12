@@ -32,7 +32,8 @@ connection.connect(function(err) {
           "View all employee by manager",
           "Add Employee",
           "Remove Employee",
-          "Update Employee Role"
+          "Update Employee Role",
+          "Add Department"
         ]
       })
       .then(function(answer) {
@@ -60,6 +61,12 @@ connection.connect(function(err) {
         case "Update Employee Role":
           updateEmployee();
           break;
+
+        case "Add Department":
+        addDepartMent();
+        break;
+          
+
         }
       });
  }
@@ -128,4 +135,32 @@ connection.connect(function(err) {
         );
     });
   }
+
+  function addDepartMent() 
+     {
+    inquirer
+    .prompt([
+      {
+        name:"name",
+        type:"input",
+        message: "Enter the department name"
+      },
+
+    ]).then(function(answer) {
+
+      connection.query(
+
+    "INSERT INTO department SET ?",
+    {
+      name: answer.name,
+    },
+    function(err) {
+      if(err) throw err;
+      console.log("Department was created successfully!")
+      start();
+    }
+      );
+  });
+}
+
 
