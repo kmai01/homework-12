@@ -69,7 +69,7 @@ connection.connect(function(err) {
     connection.query(query, function(err,res) {
       if (err) throw err;
       for (var i = 0; i < res.length; i++) {
-        console.log(res[i].Id + " | " + res[i].first_name + " | " + res.last_name + " | " + res.Role_Id + " | " + res.Manager_Id)
+        console.log(res[i].Id + " | " + res[i].first_name + " | " + res.last_name + " | " + res.role_id + " | " + res.manager_id)
       }
      start();
     });
@@ -93,14 +93,14 @@ connection.connect(function(err) {
       },
 
       {
-        name:"Role_ID",
+        name:"role_id",
         type:"input",
         message:"Enter the employee's role id"
 
       },
 
       {
-        name:"Manager_ID",
+        name:"manager_id",
         type:"input",
         message:"Enter the employee's manager id"
 
@@ -108,5 +108,24 @@ connection.connect(function(err) {
 
     
       ]).then(function(answer) {
-        
+
+        connection.query(
+
+      "INSERT INTO employee SET ?",
+      {
+        first_name: answer.first_name,
+        last_name: answer.last_name,
+        role_id: answer.role_id,
+        manager_id: answer.manager_id
+
+
+      },
+      function(err) {
+        if(err) throw err;
+        console.log("Insert was created successfully!")
+        start();
       }
+        );
+    });
+  }
+
