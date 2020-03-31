@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
 
   // Your password
   password: "",
-  database: "employeeDB"
+  database: "employeedb"
 });
 
 connection.connect(function(err) {
@@ -62,4 +62,51 @@ connection.connect(function(err) {
           break;
         }
       });
+ }
+
+  function viewAll() {
+    var query = "SELECT * FROM employee";
+    connection.query(query, function(err,res) {
+      if (err) throw err;
+      for (var i = 0; i < res.length; i++) {
+        console.log(res[i].Id + " | " + res[i].first_name + " | " + res.last_name + " | " + res.Role_Id + " | " + res.Manager_Id)
+      }
+     start();
+    });
+    
   }
+  
+  function addEmployee() {
+    inquirer
+    .prompt([
+      {
+        name:"first_name",
+        type:"input",
+        message: "Enter the employee's first name"
+      },
+
+      {
+        name:"last_name",
+        type:"input",
+        message:"Enter the employee's last name"
+
+      },
+
+      {
+        name:"Role_ID",
+        type:"input",
+        message:"Enter the employee's role id"
+
+      },
+
+      {
+        name:"Manager_ID",
+        type:"input",
+        message:"Enter the employee's manager id"
+
+      }
+
+    
+      ]).then(function(answer) {
+        
+      }
