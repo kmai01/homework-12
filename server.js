@@ -80,8 +80,11 @@ connection.connect(function(err) {
     var query = "SELECT * FROM employee";
     connection.query(query, function(err,res) {
       if (err) throw err;
+        console.log("   Employee ID  |   First Name   |   Last Name   |  Role ID | Manager ID")
       for (var i = 0; i < res.length; i++) {
-        console.log(res[i].Id + " | " + res[i].first_name + " | " + res.last_name + " | " + res.role_id + " | " + res.manager_id)
+        console.log("         " + res[i].id + "       |    " + res[i].first_name + "        |    " + res[i].last_name + "       |   " 
+        + res[i].role_id + "      |   "  + res[i].manager_id
+        )
       }
      start();
     });
