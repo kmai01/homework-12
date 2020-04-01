@@ -33,7 +33,8 @@ connection.connect(function(err) {
           "Add Employee",
           "Remove Employee",
           "Update Employee Role",
-          "Add Department"
+          "Add Department",
+          "Add Role"
         ]
       })
       .then(function(answer) {
@@ -65,6 +66,10 @@ connection.connect(function(err) {
         case "Add Department":
         addDepartMent();
         break;
+
+        case "Add Role":
+          addRole();
+          break;
           
 
         }
@@ -162,5 +167,49 @@ connection.connect(function(err) {
       );
   });
 }
+
+function addRole() {
+  inquirer
+  .prompt([
+    {
+      name:"title",
+      type:"input",
+      message: "Enter the employee's title"
+    },
+
+    {
+      name:"salary",
+      type:"input",
+      message:"Enter the employee's salary"
+
+    },
+
+    {
+      name:"department_id",
+      type:"input",
+      message:"Enter the employee's deparment id"
+
+    }
+
+    ]).then(function(answer) {
+
+      connection.query(
+
+    "INSERT INTO roles SET ?",
+    {
+      title: answer.title,
+      salary: answer.salary,
+      department_id: answer.department_id,
+    
+    },
+    function(err) {
+      if(err) throw err;
+      console.log("Role was created successfully!")
+      start();
+    }
+      );
+  });
+}
+
 
 
