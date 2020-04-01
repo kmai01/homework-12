@@ -90,6 +90,32 @@ connection.connect(function(err) {
     });
     
   }
+
+  function viewAllByDepart() {
+    inquirer
+    .prompt([
+      {
+        name:"department",
+        type:"input",
+        message: "Enter the department name"
+      },
+    ]).then(function(answer) {
+    var query = "SELECT * FROM employee";
+
+    connection.query(query, function(err,res) {
+      if (err) throw err;
+        console.log("   Employee ID  |   First Name   |   Last Name   |  Role ID | Manager ID")
+      for (var i = 0; i < res.length; i++) {
+        console.log("         " + res[i].id + "       |    " + res[i].first_name + "        |    " + res[i].last_name + "       |   " 
+        + res[i].role_id + "      |   "  + res[i].manager_id)
+        
+      }
+      start();
+      });
+     }
+
+    )}
+  
   
   function addEmployee() {
     inquirer
@@ -190,7 +216,7 @@ function addRole() {
     {
       name:"department_id",
       type:"input",
-      message:"Enter the employee's deparment id"
+      message:"Enter the employee's department id"
 
     }
 
